@@ -14,6 +14,13 @@
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+    // Modo de Consentimento: cookies de anúncio bloqueados até o visitante aceitar (LGPD).
+    gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500 });
+    try {
+      if (localStorage.getItem('cookieConsent') === 'granted') {
+        gtag('consent', 'update', { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted', analytics_storage: 'granted' });
+      }
+    } catch (e) {}
     gtag('js', new Date());
     gtag('config', 'AW-18545355718');
   </script>
@@ -468,6 +475,9 @@
       .footer-meta { text-align: left; }
     }
     @media (max-width: 430px) {
+      .nav { gap: 12px; }
+      .brand { min-width: 0; }
+      .brand-text span { line-height: 1.35; }
       .brand-text strong { font-size: 11px; }
       .brand-text span { font-size: 9px; }
       .brand-mark { width: 38px; height: 38px; }
@@ -492,6 +502,32 @@
       .traffic-interlude { height: 280px; }
       .field-grid { grid-template-columns: 1fr; }
       .field.full { grid-column: auto; }
+    }
+    /* Aviso de cookies */
+    .cookie-banner {
+      position: fixed; z-index: 70; left: max(20px, env(safe-area-inset-left));
+      bottom: max(20px, calc(env(safe-area-inset-bottom) + 12px));
+      width: min(440px, calc(100% - 40px)); padding: 18px 18px 16px; border-radius: 18px;
+      border: 1px solid var(--line); background: rgba(12, 27, 42, .97); box-shadow: var(--shadow);
+      color: #c9d6e2; font-size: 12.5px; line-height: 1.6;
+    }
+    .cookie-banner[hidden] { display: none; }
+    .cookie-banner strong { display: block; margin-bottom: 4px; color: var(--ink); font: 700 13px 'Manrope', sans-serif; }
+    .cookie-banner p { margin: 0; }
+    .cookie-banner a { color: var(--mint); text-decoration: underline; text-underline-offset: 2px; }
+    .cookie-actions { display: flex; gap: 10px; margin-top: 14px; }
+    .cookie-actions .btn { flex: 1; min-height: 44px; font-size: 12.5px; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 10px; justify-content: flex-end; }
+    .footer-links a, .footer-links button { padding: 0; border: 0; background: none; color: #aebdcc; font-size: 10px; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+    .privacy-note a { color: #aebdcc; text-decoration: underline; }
+    @media (max-width: 760px) {
+      .footer-links { justify-content: flex-start; }
+      .cookie-banner { left: 12px; right: 12px; width: auto; bottom: max(12px, calc(env(safe-area-inset-bottom) + 8px)); }
+      body.cookie-open .whatsapp-float { visibility: hidden; }
+      footer { padding-bottom: 96px; }
+    }
+    @media (max-width: 430px) {
+      .float-note { display: none; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
@@ -519,7 +555,7 @@
             <path class="brand-road-dash" d="M55 36c-13 0-25 4-25 12 0 14 40 16 39 28S34 88 30 78"/>
           </svg>
         </span>
-        <span class="brand-text"><strong>DIREITO DE TRÂNSITO</strong><span>Defesa da CNH e de autuações · OAB/GO 79.663</span></span>
+        <span class="brand-text"><strong>DIREITO DE TRÂNSITO</strong><span>Defesa da CNH e de autuações · OAB/GO&nbsp;79.663</span></span>
       </a>
       <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navLinks">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -548,7 +584,7 @@
       <div class="hero-grid" aria-hidden="true"></div>
       <div class="container hero-layout">
         <div class="hero-copy">
-          <div class="hero-kicker"><span class="pulse"></span> Direito de Trânsito · Pedro Paulo M. Reis · OAB/GO 79.663</div>
+          <div class="hero-kicker"><span class="pulse"></span> Direito de Trânsito · Pedro Paulo M. Reis · OAB/GO&nbsp;79.663</div>
           <h1>Recebeu notificação de suspensão da CNH? <span class="gradient-text">O prazo de defesa já está contando.</span></h1>
           <p>Nos processos de suspensão, o condutor costuma ter 30 dias contados da notificação para se defender. E a penalidade nem sempre se sustenta: pontos somados em duplicidade, auto sem notificação expedida no prazo do art. 281 do CTB, enquadramento incorreto. É isso que examino, documento a documento, antes de indicar qualquer caminho.</p>
           <div class="hero-actions">
@@ -747,7 +783,7 @@
             <div class="form-bottom">
               <div class="toast" id="formToast" role="status" aria-live="polite"></div>
               <button type="submit" class="btn btn-primary">Enviar para análise no WhatsApp <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-              <div class="privacy-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Ao continuar, você abrirá uma mensagem no WhatsApp. Esta página não armazena nem envia seus dados a nenhum servidor. Não anexe CNH, documentos pessoais ou dados sensíveis nesta etapa: eu solicito o que for necessário depois da primeira conversa.</span></div>
+              <div class="privacy-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Ao continuar, você abrirá uma mensagem no WhatsApp. Esta página não armazena nem envia o que você digitar a nenhum servidor. Veja a <a href="politica-de-privacidade.html">política de privacidade</a>. Não anexe CNH, documentos pessoais ou dados sensíveis nesta etapa: eu solicito o que for necessário depois da primeira conversa.</span></div>
             </div>
           </form>
         </div>
@@ -761,9 +797,18 @@
         <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 100 100" focusable="false"><path class="brand-road-edge" d="M70 22C65 12 32 12 31 24s39 14 39 28c0 8-12 12-25 12"/><path class="brand-road-asphalt" d="M70 22C65 12 32 12 31 24s39 14 39 28c0 8-12 12-25 12"/><path class="brand-road-dash" d="M70 22C65 12 32 12 31 24s39 14 39 28c0 8-12 12-25 12"/><path class="brand-road-edge" d="M55 36c-13 0-25 4-25 12 0 14 40 16 39 28S34 88 30 78"/><path class="brand-road-asphalt" d="M55 36c-13 0-25 4-25 12 0 14 40 16 39 28S34 88 30 78"/><path class="brand-road-dash" d="M55 36c-13 0-25 4-25 12 0 14 40 16 39 28S34 88 30 78"/></svg></span>
         <span><strong>DIREITO DE TRÂNSITO</strong><small>Pedro Paulo M. Reis · Advogado · OAB/GO 79.663</small></span>
       </div>
-      <div class="footer-meta"><strong>Pedro Paulo M. Reis · OAB/GO nº 79.663</strong><br>Advocacia em Direito de Trânsito. Conteúdo informativo, nos limites do Código de Ética da OAB e do Provimento 205/2021. A avaliação jurídica depende da análise dos documentos e das circunstâncias de cada caso.</div>
+      <div class="footer-meta"><strong>Pedro Paulo M. Reis · OAB/GO nº 79.663</strong><br>Advocacia em Direito de Trânsito. Conteúdo informativo, nos limites do Código de Ética da OAB e do Provimento 205/2021. A avaliação jurídica depende da análise dos documentos e das circunstâncias de cada caso.<div class="footer-links"><a href="politica-de-privacidade.html">Política de privacidade</a><button type="button" id="cookieSettings">Preferências de cookies</button></div></div>
     </div>
   </footer>
+
+  <div class="cookie-banner" id="cookieBanner" role="region" aria-label="Aviso de cookies" hidden>
+    <strong>Sua privacidade</strong>
+    <p>Esta página usa cookies para entender como as pessoas chegam até aqui. O que você escreve no formulário fica só entre nós. Se preferir recusar, tudo continua funcionando normalmente. <a href="politica-de-privacidade.html">Saiba mais</a>.</p>
+    <div class="cookie-actions">
+      <button type="button" class="btn btn-secondary" id="cookieReject">Recusar</button>
+      <button type="button" class="btn btn-primary" id="cookieAccept">Aceitar</button>
+    </div>
+  </div>
 
   <script>
     /* CONFIGURAÇÃO DO SITE
@@ -771,6 +816,23 @@
        2) Substitua no rodapé o nome profissional e o número de inscrição na OAB.
     */
     const whatsappButton = document.getElementById('whatsappButton');
+
+    // Aviso de cookies (LGPD): guarda a escolha e atualiza o Modo de Consentimento do Google
+    const cookieBanner = document.getElementById('cookieBanner');
+    function readConsent() { try { return localStorage.getItem('cookieConsent'); } catch (e) { return null; } }
+    function showCookieBanner() { cookieBanner.hidden = false; document.body.classList.add('cookie-open'); }
+    function setConsent(value) {
+      try { localStorage.setItem('cookieConsent', value); } catch (e) {}
+      const state = value === 'granted' ? 'granted' : 'denied';
+      if (typeof gtag === 'function') {
+        gtag('consent', 'update', { ad_storage: state, ad_user_data: state, ad_personalization: state, analytics_storage: state });
+      }
+      cookieBanner.hidden = true; document.body.classList.remove('cookie-open');
+    }
+    document.getElementById('cookieAccept').addEventListener('click', () => setConsent('granted'));
+    document.getElementById('cookieReject').addEventListener('click', () => setConsent('denied'));
+    document.getElementById('cookieSettings').addEventListener('click', showCookieBanner);
+    if (!readConsent()) showCookieBanner();
 
     // Conversão do Google Ads "Contato (1)": disparada no clique do WhatsApp e no envio do formulário,
     // pois a página não tem uma página de agradecimento separada.
