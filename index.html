@@ -9,6 +9,14 @@
   <meta property="og:description" content="Notificação de suspensão, pontuação e auto de infração: o que conferir, quais prazos correm e quando há defesa cabível. Análise técnica, sem promessa de resultado.">
   <meta property="og:type" content="website">
   <title>Direito de Trânsito | Defesa da CNH, autos de infração e multas</title>
+  <!-- Google tag (gtag.js) - Google Ads AW-18545355718 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18545355718"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-18545355718');
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -763,6 +771,15 @@
        2) Substitua no rodapé o nome profissional e o número de inscrição na OAB.
     */
     const whatsappButton = document.getElementById('whatsappButton');
+
+    // Conversão do Google Ads "Contato (1)": disparada no clique do WhatsApp e no envio do formulário,
+    // pois a página não tem uma página de agradecimento separada.
+    function reportConversion() {
+      if (typeof gtag === 'function') {
+        gtag('event', 'conversion', { 'send_to': 'AW-18545355718/ABPDCODk77AdEMbXjotF', 'value': 1.0, 'currency': 'BRL' });
+      }
+    }
+    whatsappButton.addEventListener('click', reportConversion);
     const WHATSAPP_NUMBER = new URL(whatsappButton.href).pathname.replace(/\D/g, '');
 
     // Menu responsivo
@@ -858,6 +875,7 @@
         return;
       }
       const url = `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
+      reportConversion();
       const opened = window.open(url, '_blank', 'noopener,noreferrer');
       if (!opened) {
         showToast('O navegador bloqueou a nova aba. Permita pop-ups para este site ou abra o WhatsApp pelo canal de atendimento do escritório.');
