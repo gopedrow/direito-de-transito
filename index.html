@@ -18,6 +18,12 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Direito de Trânsito: suspensão da CNH, autos de infração e multas. Pedro Paulo M. Reis, advogado, OAB/GO 79.663.">
   <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <script>document.documentElement.classList.add('js');</script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"LegalService","name":"Pedro Paulo M. Reis · Advocacia em Direito de Trânsito","url":"https://gopedrow.github.io/direito-de-transito/","image":"https://gopedrow.github.io/direito-de-transito/og-image.jpg","email":"contato@ppmr.adv.br","areaServed":{"@type":"Country","name":"Brasil"},"knowsAbout":["Suspensão da CNH","Cassação da CNH","Autos de infração de trânsito","Recurso à JARI","Recurso ao CETRAN"],"founder":{"@type":"Person","name":"Pedro Paulo M. Reis","jobTitle":"Advogado","image":"https://gopedrow.github.io/direito-de-transito/advogado-retrato.webp","identifier":{"@type":"PropertyValue","propertyID":"OAB/GO","value":"79.663"}}}
+  </script>
   <link rel="canonical" href="https://gopedrow.github.io/direito-de-transito/">
   <title>Direito de Trânsito | Defesa da CNH, autos de infração e multas</title>
   <!-- Google tag (gtag.js) - Google Ads AW-18545355718 -->
@@ -32,12 +38,14 @@
         gtag('consent', 'update', { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted', analytics_storage: 'granted' });
       }
     } catch (e) {}
+    gtag('set', 'ads_data_redaction', true);
+    gtag('set', 'url_passthrough', true);
     gtag('js', new Date());
     gtag('config', 'AW-18545355718');
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --ink: #f4f7fb;
@@ -214,7 +222,7 @@
     .area-icon { display: grid; place-items: center; width: 46px; height: 46px; border: 1px solid rgba(138,240,208,.19); background: linear-gradient(140deg, rgba(138,240,208,.12), rgba(145,186,255,.06)); border-radius: 14px; color: var(--mint); box-shadow: 0 8px 22px rgba(0,0,0,.17), inset 0 1px 0 rgba(255,255,255,.08); }
     .area-icon svg { width: 22px; height: 22px; }
     .area-card h3 { margin: 25px 0 9px; font: 700 17px/1.25 'Manrope', sans-serif; letter-spacing: -.02em; }
-    .area-card p { margin: 0; color: #9fb0c0; font-size: 12px; line-height: 1.75; }
+    .area-card p { margin: 0; color: #9fb0c0; font-size: 14px; line-height: 1.7; }
     .area-index { position: absolute; top: 25px; right: 22px; color: #60788c; font: 700 10px 'Manrope', sans-serif; letter-spacing: .08em; }
 
     /* Full-bleed traffic animation */
@@ -299,15 +307,16 @@
     }
     .traffic-lane { position: absolute; inset: 0; }
     .traffic-vehicle {
-      position: absolute; left: -300px; transform-origin: bottom left;
+      position: absolute; left: 0; transform-origin: bottom left; will-change: transform;
       animation: traffic-drive 16s linear infinite;
       animation-duration: calc(var(--duration) * var(--speed));
       animation-delay: calc(var(--duration) * var(--speed) * var(--offset) * -1);
     }
     .traffic-lane.outbound .traffic-vehicle { bottom: 16px; }
-    .traffic-lane.inbound .traffic-vehicle { bottom: 84px; animation-name: traffic-drive-reverse; transform: scale(.8); opacity: .86; }
-    @keyframes traffic-drive { from { left: -300px; } to { left: calc(100% + 40px); } }
-    @keyframes traffic-drive-reverse { from { left: calc(100% + 40px); } to { left: -300px; } }
+    .traffic-lane.inbound .traffic-vehicle { bottom: 84px; animation-name: traffic-drive-reverse; opacity: .86; }
+    @keyframes traffic-drive { from { transform: translateX(-300px); } to { transform: translateX(calc(100vw + 40px)); } }
+    @keyframes traffic-drive-reverse { from { transform: translateX(calc(100vw + 40px)) scale(.8); } to { transform: translateX(-300px) scale(.8); } }
+    .traffic-interlude.paused * { animation-play-state: paused !important; }
     .traffic-car { position: relative; display: block; width: var(--car-width, 160px); height: 58px; overflow: visible; animation: traffic-bob 1.3s ease-in-out infinite; }
     .traffic-lane.inbound .traffic-car { animation-name: traffic-bob-flip; }
     @keyframes traffic-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1px); } }
@@ -344,7 +353,7 @@
     .step:hover { transform: translateX(5px); border-color: rgba(138,240,208,.3); }
     .step-num { position: relative; z-index: 1; display: grid; place-items: center; width: 54px; height: 54px; border-radius: 16px; color: var(--mint); font: 800 13px 'Manrope', sans-serif; background: #102a3a; border: 1px solid rgba(138,240,208,.31); box-shadow: 0 0 0 6px rgba(8,19,31,.85); }
     .step h3 { margin: 2px 0 7px; font: 700 16px 'Manrope', sans-serif; }
-    .step p { margin: 0; color: #9caebe; font-size: 12px; line-height: 1.8; }
+    .step p { margin: 0; color: #9caebe; font-size: 14px; line-height: 1.75; }
 
     /* Feature band */
     .audit-band { padding-top: 22px; }
@@ -361,11 +370,11 @@
     .faq-list { display: grid; gap: 10px; }
     details.faq-item { border-radius: 16px; border: 1px solid var(--line); background: rgba(17,36,53,.55); transition: border-color .2s, background .2s; }
     details.faq-item[open] { border-color: rgba(138,240,208,.27); background: rgba(17,39,57,.77); }
-    .faq-item summary { display: flex; justify-content: space-between; align-items: center; gap: 18px; list-style: none; cursor: pointer; padding: 18px 20px; font-size: 13px; font-weight: 600; }
+    .faq-item summary { display: flex; justify-content: space-between; align-items: center; gap: 18px; list-style: none; cursor: pointer; padding: 18px 20px; font-size: 15px; font-weight: 600; }
     .faq-item summary::-webkit-details-marker { display: none; }
     .faq-item summary::after { content: '+'; display: grid; place-items: center; flex: none; width: 25px; height: 25px; color: var(--mint); border: 1px solid rgba(138,240,208,.23); border-radius: 8px; font-size: 17px; font-weight: 400; transition: transform .2s; }
     .faq-item[open] summary::after { content: '−'; transform: rotate(180deg); }
-    .faq-answer { padding: 0 20px 20px; color: #9eb0c0; font-size: 12px; line-height: 1.85; }
+    .faq-answer { padding: 0 20px 20px; color: #9eb0c0; font-size: 15px; line-height: 1.75; }
     .faq-answer p { margin: 0; }
 
     /* Contact */
@@ -376,17 +385,17 @@
     .contact-copy h2 { position: relative; z-index: 1; margin: 17px 0 14px; font: 700 clamp(29px, 3.5vw, 40px)/1.12 'Manrope', sans-serif; letter-spacing: -.045em; }
     .contact-copy > p { position: relative; z-index: 1; margin: 0; color: #a8b7c5; font-size: 13px; line-height: 1.85; }
     .contact-list { position: relative; z-index: 1; display: grid; gap: 13px; margin-top: 28px; }
-    .contact-list div { display: flex; align-items: center; gap: 10px; color: #c4d1dc; font-size: 11px; }
+    .contact-list div { display: flex; align-items: center; gap: 10px; color: #c4d1dc; font-size: 14px; }
     .contact-list svg { width: 17px; color: var(--mint); }
     .contact-form { padding: 38px; display: grid; gap: 16px; }
     .form-heading { margin-bottom: 2px; }
     .form-heading strong { display: block; font: 700 17px 'Manrope', sans-serif; }
-    .form-heading span { display: block; margin-top: 4px; color: #91a4b5; font-size: 11px; }
+    .form-heading span { display: block; margin-top: 4px; color: #91a4b5; font-size: 13px; }
     .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
     .field { display: grid; gap: 7px; }
     .field.full { grid-column: 1 / -1; }
-    .field label { color: #cbd7e1; font-size: 11px; font-weight: 600; }
-    .field input, .field select, .field textarea { width: 100%; min-width: 0; border: 1px solid rgba(182,207,225,.16); border-radius: 12px; outline: 0; color: #edf4fa; background: rgba(5,17,28,.48); padding: 13px 13px; font-size: 12px; transition: border-color .2s, box-shadow .2s, background .2s; }
+    .field label { color: #cbd7e1; font-size: 13px; font-weight: 600; }
+    .field input, .field select, .field textarea { width: 100%; min-width: 0; border: 1px solid rgba(182,207,225,.16); border-radius: 12px; outline: 0; color: #edf4fa; background: rgba(5,17,28,.48); padding: 13px 13px; font-size: 16px; transition: border-color .2s, box-shadow .2s, background .2s; }
     .field input::placeholder, .field textarea::placeholder { color: #62788d; }
     .field select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2394a9bb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 13px center; padding-right: 35px; }
     .field select option { color: #edf4fa; background: #102438; }
@@ -394,7 +403,7 @@
     .field input:focus, .field select:focus, .field textarea:focus { border-color: rgba(138,240,208,.58); box-shadow: 0 0 0 3px rgba(138,240,208,.08); background: rgba(5,17,28,.75); }
     .form-bottom { display: grid; gap: 10px; }
     .form-bottom .btn { width: 100%; }
-    .privacy-note { display: flex; align-items: flex-start; gap: 7px; color: #7e93a6; font-size: 10px; line-height: 1.6; }
+    .privacy-note { display: flex; align-items: flex-start; gap: 7px; color: #8b9fb1; font-size: 12px; line-height: 1.6; }
     .privacy-note svg { flex: none; width: 14px; height: 14px; margin-top: 1px; color: #8ba2b6; }
     .toast { display: none; padding: 11px 13px; border-radius: 10px; border: 1px solid rgba(255,177,124,.28); background: rgba(255,177,124,.08); color: #ffd1ad; font-size: 11px; line-height: 1.6; }
     .toast.visible { display: block; animation: toast-in .25s ease both; }
@@ -408,12 +417,12 @@
     .footer-brand .brand-mark svg { width: 42px; height: 42px; }
     .footer-brand strong { display: block; font: 700 11px 'Manrope', sans-serif; }
     .footer-brand small { display: block; margin-top: 3px; color: #8295a7; font-size: 10px; }
-    .footer-meta { max-width: 520px; color: #73879a; text-align: right; font-size: 10px; line-height: 1.7; }
+    .footer-meta { max-width: 560px; color: #8295a7; text-align: right; font-size: 12px; line-height: 1.7; }
     .footer-meta strong { color: #aebdcc; font-weight: 600; }
 
     /* Entrance animations */
-    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.25,1); }
-    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    .js .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.25,1); }
+    .js .reveal.in-view { opacity: 1; transform: translateY(0); }
     .reveal-delay-1 { transition-delay: .08s; }
     .reveal-delay-2 { transition-delay: .16s; }
     .reveal-delay-3 { transition-delay: .24s; }
@@ -465,7 +474,6 @@
       .areas-grid { gap: 11px; }
       .area-card { min-height: 238px; padding: 19px 17px; }
       .area-card h3 { font-size: 15px; margin-top: 22px; }
-      .area-card p { font-size: 11px; }
       .traffic-interlude { height: 300px; margin-top: -40px; margin-bottom: -24px; }
       .traffic-skyline { height: 140px; }
       .traffic-lane.outbound .traffic-vehicle { transform: scale(.68); }
@@ -495,8 +503,8 @@
       .whatsapp-float { right: 14px; padding: 11px 14px; }
       .whatsapp-label strong { font-size: 12px; }
       .whatsapp-label small { font-size: 9px; }
-      .hero-kicker { font-size: 9px; letter-spacing: .09em; }
-      h1 { font-size: 41px; }
+      .hero-kicker { font-size: 11px; letter-spacing: .08em; }
+      h1 { font-size: 34px; }
       .hero-actions .btn { flex-basis: 100%; }
       .visual-stage { min-height: 390px; margin-left: -4px; margin-right: -4px; }
       .audit-card { width: 88%; padding: 15px; }
@@ -529,7 +537,7 @@
     .cookie-actions { display: flex; gap: 10px; margin-top: 14px; }
     .cookie-actions .btn { flex: 1; min-height: 44px; font-size: 12.5px; }
     .footer-links { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 10px; justify-content: flex-end; }
-    .footer-links a, .footer-links button { padding: 0; border: 0; background: none; color: #aebdcc; font-size: 10px; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+    .footer-links a, .footer-links button { padding: 0; border: 0; background: none; color: #aebdcc; font-size: 12px; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
     .privacy-note a { color: #aebdcc; text-decoration: underline; }
     @media (max-width: 760px) {
       .footer-links { justify-content: flex-start; }
@@ -540,17 +548,48 @@
     @media (max-width: 430px) {
       .float-note { display: none; }
     }
+    @media (max-width: 760px) {
+      .traffic-interlude, .orbit, .orb { display: none; }
+    }
+    /* Foco visível e atalho para o conteúdo */
+    .btn:focus-visible, .nav-links a:focus-visible, .faq-item summary:focus-visible, .footer-links a:focus-visible, .footer-links button:focus-visible, .about-link:focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; }
+    .field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { outline: 2px solid var(--mint); outline-offset: 1px; }
+    .skip-link { position: absolute; left: -9999px; top: 12px; z-index: 2000; padding: 10px 14px; border-radius: 10px; background: var(--mint); color: #071720; font-weight: 700; }
+    .skip-link:focus { left: 16px; }
+    /* Seção sobre o advogado */
+    .about-layout { display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: 56px; align-items: center; }
+    .about-photo { position: relative; margin: 0; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); background: var(--night-2); aspect-ratio: 4 / 5; }
+    .about-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .about-photo figcaption { position: absolute; left: 18px; right: 18px; bottom: 16px; color: #d8e3ec; font-size: 13px; line-height: 1.45; }
+    .about-photo figcaption strong { display: block; color: var(--ink); font: 700 16px 'Manrope', sans-serif; }
+    .about-copy h2 { margin: 17px 0 16px; font: 700 clamp(30px, 4vw, 44px)/1.13 'Manrope', sans-serif; letter-spacing: -.045em; }
+    .about-copy > p { margin: 0 0 22px; color: #b4c2cf; font-size: 16px; line-height: 1.75; }
+    .about-facts { display: grid; gap: 12px; margin: 0 0 26px; padding: 0; list-style: none; }
+    .about-facts li { position: relative; padding-left: 26px; color: #c9d6e2; font-size: 15px; line-height: 1.6; }
+    .about-facts li::before { content: ''; position: absolute; left: 0; top: .45em; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--mint); }
+    .about-link { display: inline-flex; align-items: center; gap: 8px; color: var(--mint); font-size: 14px; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+    .about-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+    .contact-person { display: flex; align-items: center; gap: 14px; margin: 22px 0 4px; }
+    .contact-person img { width: 64px; height: 64px; border-radius: 50%; flex: none; }
+    .contact-person strong { display: block; color: var(--ink); font: 700 15px 'Manrope', sans-serif; }
+    .contact-person span { display: block; color: #9fb0c0; font-size: 13px; }
+    .footer-meta a { color: #aebdcc; text-decoration: underline; text-underline-offset: 2px; }
+    @media (max-width: 860px) {
+      .about-layout { grid-template-columns: 1fr; gap: 28px; }
+      .about-photo { max-width: 420px; }
+    }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
       .reveal { opacity: 1; transform: none; }
       .traffic-glow, .traffic-skyline .traffic-building, .traffic-car, .traffic-spinning-wheel { animation-play-state: paused !important; }
       .traffic-vehicle { animation: none !important; left: 54%; }
       .traffic-lane .traffic-vehicle:not(:first-child) { display: none; }
-      .traffic-lane.inbound .traffic-vehicle { left: 18%; }
+      .traffic-lane.inbound .traffic-vehicle { left: 18%; transform: scale(.8); }
     }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#contato">Ir para o contato</a>
   <div class="top-progress" aria-hidden="true"><span id="progressBar"></span></div>
 
   <header class="header">
@@ -574,8 +613,9 @@
       <nav class="nav-links" id="navLinks" aria-label="Navegação principal">
         <a href="#atuacao">Áreas de atuação</a>
         <a href="#metodo">Método de análise</a>
+        <a href="#advogado">Sobre o advogado</a>
         <a href="#duvidas">Dúvidas frequentes</a>
-        <a class="nav-contact" href="#contato">Falar com o advogado <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="nav-contact" href="#contato">Pedir análise <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </nav>
     </div>
   </header>
@@ -596,11 +636,11 @@
       <div class="container hero-layout">
         <div class="hero-copy">
           <div class="hero-kicker"><span class="pulse"></span> Direito de Trânsito · Pedro Paulo M. Reis · OAB/GO&nbsp;79.663</div>
-          <h1>Recebeu notificação de suspensão da CNH? <span class="gradient-text">O prazo de defesa já está contando.</span></h1>
-          <p>Nos processos de suspensão, o condutor costuma ter 30 dias contados da notificação para se defender. E a penalidade nem sempre se sustenta: pontos somados em duplicidade, auto sem notificação expedida no prazo do art. 281 do CTB, enquadramento incorreto. É isso que examino, documento a documento, antes de indicar qualquer caminho.</p>
+          <h1 id="heroTitle">Recebeu notificação de suspensão da CNH? <span class="gradient-text">Saiba qual prazo de defesa se aplica ao seu caso.</span></h1>
+          <p id="heroLead">Nos processos de suspensão, o prazo de defesa costuma ser de 30 dias contados da notificação. Antes de indicar qualquer caminho, examino o auto, a notificação e o prontuário, documento a documento.</p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#contato">Enviar minha notificação para análise <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-            <a class="btn btn-secondary" href="#atuacao">Ver o que pode ser contestado <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14m-7-7 7 7 7-7"/></svg></a>
+            <a class="btn btn-primary" href="#contato">Pedir análise da minha notificação <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="btn btn-secondary" href="https://wa.me/556282105010?text=Ol%C3%A1%2C%20Dr.%20Pedro%20Paulo.%20Recebi%20uma%20notifica%C3%A7%C3%A3o%20de%20tr%C3%A2nsito%20e%20gostaria%20de%20uma%20an%C3%A1lise%20do%20meu%20caso." target="_blank" rel="noopener noreferrer">Falar direto no WhatsApp <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="15" height="15" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </div>
           <div class="hero-proof">
             <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"/></svg> Leitura do auto e da notificação</span>
@@ -609,7 +649,7 @@
           </div>
         </div>
 
-        <div class="visual-stage" aria-label="Ilustração de uma análise jurídica de documentação de trânsito">
+        <div class="visual-stage">
           <div class="orb orb-a" aria-hidden="true"></div><div class="orb orb-b" aria-hidden="true"></div><div class="orbit" aria-hidden="true"></div>
           <div class="audit-card glass" id="auditCard">
             <div class="audit-top">
@@ -617,7 +657,7 @@
               <span class="tag-soft">ANTES DE DEFENDER</span>
             </div>
             <div class="audit-title">O que confiro no seu processo</div>
-            <p class="audit-sub">Os pontos que mais derrubam, ou sustentam, uma penalidade.</p>
+            <p class="audit-sub">Os pontos que mais influenciam a validade de uma penalidade.</p>
             <div class="audit-list">
               <div class="audit-row"><span class="row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4M11 8v3l2 1"/></svg></span><span class="row-copy"><strong>Notificação da autuação</strong><small>Expedida em até 30 dias? Enviada ao endereço do cadastro?</small></span><svg class="row-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="m9 18 6-6-6-6"/></svg></div>
               <div class="audit-row"><span class="row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg></span><span class="row-copy"><strong>Auto de infração</strong><small>Placa, local, enquadramento, agente e aferição do radar</small></span><svg class="row-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="m9 18 6-6-6-6"/></svg></div>
@@ -672,13 +712,13 @@
             <span class="area-index">04 / MULTAS</span>
             <span class="area-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 9.5c0-1 1-1.8 2.2-1.8h3.1c1.3 0 2.2.8 2.2 1.8s-.9 1.8-2.2 1.8h-2.6c-1.3 0-2.2.8-2.2 1.8s1 1.8 2.2 1.8h3.1c1.2 0 2.2-.8 2.2-1.8M12 5.5v13"/></svg></span>
             <h3>Defesa de multas e penalidades</h3>
-            <p>Da defesa prévia ao recurso ao CETRAN, cada etapa tem prazo e requisitos próprios, e perder um deles encerra a via administrativa. Atuo também na cassação da CNH por dirigir durante a suspensão e nas penalidades de retenção, remoção e apreensão do veículo.</p>
+            <p>Da defesa prévia ao recurso ao CETRAN, cada etapa tem prazo e requisitos próprios, e perder um deles pode encerrar a via administrativa. Atuo também na cassação da CNH por dirigir durante a suspensão e nas penalidades de retenção, remoção e apreensão do veículo.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <div class="traffic-interlude" role="img" aria-label="Via noturna com veículos em movimento nos dois sentidos">
+    <div class="traffic-interlude" aria-hidden="true">
       <div class="traffic-world" aria-hidden="true">
         <div class="traffic-glow mint"></div>
         <div class="traffic-glow blue"></div>
@@ -733,7 +773,7 @@
         <div class="method-copy reveal">
           <span class="eyebrow">Método de trabalho</span>
           <h2>Primeiro leio o processo. <span class="gradient-text">Depois opino.</span></h2>
-          <p>Antes de dizer se há defesa, preciso saber qual órgão autuou, qual é a infração, quando a notificação foi expedida e quanto prazo resta. Em trânsito, um dia de atraso encerra a via administrativa.</p>
+          <p>Antes de dizer se há defesa, preciso saber qual órgão autuou, qual é a infração, quando a notificação foi expedida e quanto prazo resta. Em trânsito, perder um prazo pode encerrar uma fase de defesa.</p>
           <div class="method-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7h.01"/></svg><span>A viabilidade de uma defesa depende dos documentos e das circunstâncias de cada caso. Nenhuma análise garante cancelamento de multa ou afastamento da suspensão. O compromisso é conferir cada ponto do processo antes de qualquer medida, e dizer com clareza quando a defesa não vale a pena.</span></div>
         </div>
         <div class="steps">
@@ -748,11 +788,34 @@
       <div class="container">
         <div class="audit-banner glass reveal">
           <div><span class="eyebrow">Documentos e prazos</span><h2>A notificação de suspensão é o último elo de uma cadeia de atos.</h2><p>Atrás dela há cada auto de infração, cada notificação expedida e cada ponto lançado no prontuário. Um elo defeituoso pode comprometer a penalidade inteira, mas isso só se descobre lendo o processo completo, não a carta que chegou em casa.</p></div>
-          <a class="btn btn-secondary" href="#contato">Enviar minha notificação <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-secondary" href="#contato">Pedir análise da notificação <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
       </div>
     </section>
 
+    <section class="section" id="advogado">
+      <div class="container about-layout">
+        <figure class="about-photo reveal">
+          <img src="advogado-retrato.webp" alt="Pedro Paulo M. Reis, advogado, OAB/GO 79.663" width="640" height="800" loading="lazy" decoding="async">
+          <figcaption><strong>Pedro Paulo M. Reis</strong>Advogado · OAB/GO 79.663</figcaption>
+        </figure>
+        <div class="about-copy reveal reveal-delay-1">
+          <span class="eyebrow">Quem analisa o seu caso</span>
+          <h2>Um advogado, <span class="gradient-text">do primeiro contato à defesa.</span></h2>
+          <p>Sou Pedro Paulo M. Reis, advogado inscrito na OAB de Goiás sob o nº 79.663. Atuo em Direito de Trânsito: processos de suspensão e cassação da CNH, defesas de autuação e recursos às JARIs e aos CETRANs. A análise da notificação e a defesa são feitas por mim.</p>
+          <ul class="about-facts">
+            <li>Atendimento feito por mim, do primeiro contato ao protocolo.</li>
+            <li>Leitura do processo antes de qualquer proposta ou orientação.</li>
+            <li>Atendimento a condutores de todo o país, com protocolo eletrônico ou postal nos processos administrativos.</li>
+            <li>Sigilo profissional sobre tudo o que você enviar.</li>
+          </ul>
+          <div class="about-actions">
+            <a class="btn btn-primary" href="#contato">Pedir análise do meu caso <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="15" height="15" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="about-link" href="https://cna.oab.org.br/" target="_blank" rel="noopener noreferrer">Conferir minha inscrição no Cadastro Nacional dos Advogados</a>
+          </div>
+        </div>
+      </div>
+    </section>
     <section class="section" id="duvidas">
       <div class="container faq-layout">
         <div class="faq-intro reveal">
@@ -762,10 +825,12 @@
         </div>
         <div class="faq-list reveal reveal-delay-1">
           <details class="faq-item"><summary>Recebi notificação de suspensão da CNH. Quanto tempo tenho?</summary><div class="faq-answer"><p>O prazo vem indicado na própria notificação e, nos processos de suspensão, não é inferior a 30 dias. Ele conta da notificação, não do dia em que você leu a carta. Localize a data de expedição e a data-limite, guarde o envelope e o documento, e não espere o fim do prazo para buscar análise: montar uma defesa exige consultar o prontuário e cada auto que gerou pontos.</p></div></details>
-          <details class="faq-item"><summary>É possível cancelar qualquer multa?</summary><div class="faq-answer"><p>Não, e desconfie de quem promete isso. A anulação depende de vício concreto: notificação expedida fora dos 30 dias, enquadramento errado, dados do veículo divergentes, radar sem aferição válida, prazo de indicação de condutor desrespeitado pelo órgão. Se o auto está regular, digo isso com clareza e você não gasta com uma defesa sem base.</p></div></details>
+          <details class="faq-item"><summary>É possível cancelar qualquer multa?</summary><div class="faq-answer"><p>Não. A anulação depende de vício concreto no processo: notificação expedida fora dos 30 dias, enquadramento errado, dados do veículo divergentes, radar sem aferição válida, prazo de indicação de condutor desrespeitado pelo órgão. Se o auto está regular, digo isso com clareza e você não gasta com uma defesa sem base.</p></div></details>
           <details class="faq-item"><summary>A análise garante que a CNH não será suspensa?</summary><div class="faq-answer"><p>Não. O Código de Ética da OAB proíbe promessa de resultado, e eu não a faria de qualquer forma: quem decide é a autoridade de trânsito, a JARI, o CETRAN ou o juiz. O que a análise entrega é um diagnóstico honesto dos fundamentos existentes, dos riscos e das medidas cabíveis, para você decidir se vale seguir.</p></div></details>
           <details class="faq-item"><summary>A defesa é administrativa ou judicial?</summary><div class="faq-answer"><p>Quase sempre começa na via administrativa: defesa prévia, recurso à JARI e, em segunda instância, ao CETRAN. A via judicial entra quando há ilegalidade evidente, quando a via administrativa já se esgotou ou quando há urgência, como no caso de quem depende da CNH para trabalhar. Avalio as duas e indico a que faz sentido no seu caso.</p></div></details>
-          <details class="faq-item"><summary>Que documentos preciso enviar para a análise inicial?</summary><div class="faq-answer"><p>A notificação recebida, frente e verso. Se tiver, o auto de infração, a consulta do prontuário no DETRAN e o extrato de pontuação. Com isso já identifico a fase e o prazo. Envie pelo WhatsApp do escritório, nunca em comentários públicos, e não mande CNH ou documentos pessoais antes que eu peça.</p></div></details>
+          <details class="faq-item"><summary>Que documentos preciso enviar para a análise inicial?</summary><div class="faq-answer"><p>A notificação recebida, frente e verso. Se tiver, o auto de infração, a consulta do prontuário no DETRAN e o extrato de pontuação. Com isso já identifico a fase e o prazo. Envie pelo WhatsApp do advogado, nunca em comentários públicos, e não mande CNH ou documentos pessoais antes que eu peça.</p></div></details>
+          <details class="faq-item"><summary>Como são combinados os honorários?</summary><div class="faq-answer"><p>Na primeira conversa identifico a fase do processo e o prazo. Se houver medida cabível, apresento a proposta de honorários por escrito, com contrato, antes de iniciar qualquer trabalho. Os valores observam a Tabela de Honorários da OAB/GO e não são divulgados nesta página, porque as normas de publicidade da advocacia não permitem.</p></div></details>
+          <details class="faq-item"><summary>Moro em outro estado. Você pode atuar no meu caso?</summary><div class="faq-answer"><p>Na via administrativa, sim. A defesa e os recursos são protocolados no órgão que autuou, por meio eletrônico ou postal, quando o órgão admite. O atendimento é feito por WhatsApp e e-mail, com contrato e procuração formalizados a distância. Se o caso exigir ação judicial fora de Goiás, explico antes como ela será conduzida.</p></div></details>
         </div>
       </div>
     </section>
@@ -776,25 +841,26 @@
           <div class="contact-copy">
             <span class="eyebrow">Análise do seu caso</span>
             <h2>Me conte o que você recebeu.</h2>
+            <div class="contact-person"><img src="advogado-avatar.webp" alt="" width="64" height="64" loading="lazy" decoding="async"><div><strong>Pedro Paulo M. Reis</strong><span>Advogado · OAB/GO 79.663</span></div></div>
             <p>Informe o tipo de notificação e, se souber, a data-limite. A primeira conversa serve para identificar a fase do processo e dizer se há o que examinar. Atendimento a condutores de todo o país.</p>
             <div class="contact-list">
-              <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg><span>Resposta do próprio advogado, não de robô</span></div>
-              <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Identificação imediata do prazo que está correndo</span></div>
+              <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg><span>Atendimento pessoal pelo advogado responsável</span></div>
+              <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Identificação do prazo já na primeira leitura dos documentos</span></div>
               <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 7v5c0 5 3.5 7.5 8 9 4.5-1.5 8-4 8-9V7l-8-4Z"/><path d="m9 12 2 2 4-4"/></svg><span>Sigilo profissional desde a primeira mensagem</span></div>
+              <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span>Também por e-mail: <a href="mailto:contato@ppmr.adv.br">contato@ppmr.adv.br</a></span></div>
             </div>
           </div>
           <form class="contact-form" id="contactForm">
-            <div class="form-heading"><strong>Dados para o primeiro contato</strong><span>Ao enviar, abre uma mensagem pronta no WhatsApp do escritório.</span></div>
+            <div class="form-heading"><strong>Dados para o primeiro contato</strong><span>Ao enviar, abre uma mensagem pronta no WhatsApp do advogado.</span></div>
             <div class="field-grid">
-              <div class="field"><label for="nome">Nome</label><input id="nome" name="nome" autocomplete="name" placeholder="Seu nome" required></div>
-              <div class="field"><label for="telefone">WhatsApp com DDD</label><input id="telefone" name="telefone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(00) 00000-0000" required></div>
-              <div class="field full"><label for="assunto">O que você recebeu?</label><select id="assunto" name="assunto" required><option value="" selected disabled>Selecione uma opção</option><option>Suspensão por pontuação</option><option>Processo de suspensão do direito de dirigir</option><option>Defesa em auto de infração</option><option>Multa de trânsito</option><option>Cassação da CNH</option><option>Outra questão de trânsito</option></select></div>
+              <div class="field full"><label for="nome">Nome</label><input id="nome" name="nome" autocomplete="name" placeholder="Seu nome" required></div>
+              <div class="field full"><label for="assunto">O que você recebeu?</label><select id="assunto" name="assunto" required><option value="" selected disabled>Selecione uma opção</option><option>Suspensão por pontuação</option><option>Processo de suspensão do direito de dirigir</option><option>Defesa em auto de infração</option><option>Multa de trânsito</option><option>Cassação da CNH</option><option>Não sei identificar</option><option>Outra questão de trânsito</option></select></div>
               <div class="field full"><label for="mensagem">Data-limite e contexto (opcional)</label><textarea id="mensagem" name="mensagem" placeholder="Ex.: notificação de suspensão por 20 pontos do DETRAN-GO, prazo até 15/11"></textarea></div>
             </div>
             <div class="form-bottom">
               <div class="toast" id="formToast" role="status" aria-live="polite"></div>
               <button type="submit" class="btn btn-primary">Enviar para análise no WhatsApp <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-              <div class="privacy-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Ao continuar, você abrirá uma mensagem no WhatsApp. Esta página não armazena nem envia o que você digitar a nenhum servidor. Veja a <a href="politica-de-privacidade.html">política de privacidade</a>. Não anexe CNH, documentos pessoais ou dados sensíveis nesta etapa: eu solicito o que for necessário depois da primeira conversa.</span></div>
+              <div class="privacy-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Ao continuar, você abrirá uma mensagem no WhatsApp. Esta página não armazena nem envia o que você digitar a nenhum servidor. Veja a <a href="politica-de-privacidade.html">política de privacidade</a>. A foto da notificação pode ser enviada na própria conversa do WhatsApp. Não anexe CNH ou outros documentos pessoais antes que eu peça.</span></div>
             </div>
           </form>
         </div>
@@ -808,7 +874,7 @@
         <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 100 100" focusable="false"><path class="brand-road-edge" d="M70 22C65 12 32 12 31 24s39 14 39 28c0 8-12 12-25 12"/><path class="brand-road-asphalt" d="M70 22C65 12 32 12 31 24s39 14 39 28c0 8-12 12-25 12"/><path class="brand-road-dash" d="M70 22C65 12 32 12 31 24s39 14 39 28c0 8-12 12-25 12"/><path class="brand-road-edge" d="M55 36c-13 0-25 4-25 12 0 14 40 16 39 28S34 88 30 78"/><path class="brand-road-asphalt" d="M55 36c-13 0-25 4-25 12 0 14 40 16 39 28S34 88 30 78"/><path class="brand-road-dash" d="M55 36c-13 0-25 4-25 12 0 14 40 16 39 28S34 88 30 78"/></svg></span>
         <span><strong>DIREITO DE TRÂNSITO</strong><small>Pedro Paulo M. Reis · Advogado · OAB/GO 79.663</small></span>
       </div>
-      <div class="footer-meta"><strong>Pedro Paulo M. Reis · OAB/GO nº 79.663</strong><br>Advocacia em Direito de Trânsito. Conteúdo informativo, nos limites do Código de Ética da OAB e do Provimento 205/2021. A avaliação jurídica depende da análise dos documentos e das circunstâncias de cada caso.<div class="footer-links"><a href="politica-de-privacidade.html">Política de privacidade</a><button type="button" id="cookieSettings">Preferências de cookies</button></div></div>
+      <div class="footer-meta"><strong>Pedro Paulo M. Reis · OAB/GO nº 79.663</strong><br>Atendimento digital em todo o país · <a href="mailto:contato@ppmr.adv.br">contato@ppmr.adv.br</a> · <a href="https://cna.oab.org.br/" target="_blank" rel="noopener noreferrer">Conferir inscrição no CNA/OAB</a><br>Advocacia em Direito de Trânsito. Conteúdo informativo, nos limites do Código de Ética da OAB e do Provimento 205/2021. A avaliação jurídica depende da análise dos documentos e das circunstâncias de cada caso.<div class="footer-links"><a href="politica-de-privacidade.html">Política de privacidade</a><button type="button" id="cookieSettings">Preferências de cookies</button></div></div>
     </div>
   </footer>
 
@@ -822,10 +888,6 @@
   </div>
 
   <script>
-    /* CONFIGURAÇÃO DO SITE
-       1) O número oficial está configurado no link do botão flutuante do WhatsApp.
-       2) Substitua no rodapé o nome profissional e o número de inscrição na OAB.
-    */
     const whatsappButton = document.getElementById('whatsappButton');
 
     // Aviso de cookies (LGPD): guarda a escolha e atualiza o Modo de Consentimento do Google
@@ -847,12 +909,35 @@
 
     // Conversão do Google Ads "Contato (1)": disparada no clique do WhatsApp e no envio do formulário,
     // pois a página não tem uma página de agradecimento separada.
-    function reportConversion() {
+    // Para separar as conversões no futuro, crie outra ação no Google Ads e passe o rótulo dela em reportConversion('ROTULO').
+    const CONVERSION_LABEL = 'ABPDCODk77AdEMbXjotF';
+    function reportConversion(label) {
       if (typeof gtag === 'function') {
-        gtag('event', 'conversion', { 'send_to': 'AW-18545355718/ABPDCODk77AdEMbXjotF', 'value': 1.0, 'currency': 'BRL' });
+        gtag('event', 'conversion', { 'send_to': 'AW-18545355718/' + (typeof label === 'string' ? label : CONVERSION_LABEL), 'value': 1.0, 'currency': 'BRL' });
       }
     }
-    whatsappButton.addEventListener('click', reportConversion);
+    document.querySelectorAll('a[href^="https://wa.me/"]').forEach(link => link.addEventListener('click', () => reportConversion()));
+
+    // Título e assunto conforme o tema do anúncio (?tema=multa | autuacao | cassacao)
+    const TEMAS = {
+      multa: { h1: 'Recebeu uma multa de trânsito? <span class="gradient-text">Confira se o auto foi lavrado e notificado corretamente.</span>', lead: 'O auto de infração precisa trazer dados corretos, e a notificação da autuação deve ter sido expedida em até 30 dias da infração (art. 281, parágrafo único, II, do CTB). Antes de indicar qualquer caminho, examino o auto, as notificações e o prontuário, documento a documento.', assunto: 'Multa de trânsito' },
+      autuacao: { h1: 'Recebeu notificação de autuação? <span class="gradient-text">Veja se ela saiu no prazo de 30 dias do CTB.</span>', lead: 'Se a notificação da autuação não for expedida em até 30 dias, o auto deve ser arquivado (art. 281, II, do CTB). Antes de indicar qualquer caminho, examino o auto, a notificação e o prontuário, documento a documento.', assunto: 'Defesa em auto de infração' },
+      cassacao: { h1: 'Recebeu notificação de cassação da CNH? <span class="gradient-text">Confira se o processo seguiu cada etapa prevista.</span>', lead: 'A cassação tem rito próprio, previsto no CTB e nas resoluções do CONTRAN, com prazos de defesa definidos. Antes de indicar qualquer caminho, examino a notificação, o fato que deu origem à cassação e o prontuário, documento a documento.', assunto: 'Cassação da CNH' }
+    };
+    const temaParam = (new URLSearchParams(location.search).get('tema') || '').toLowerCase();
+    const tema = Object.prototype.hasOwnProperty.call(TEMAS, temaParam) ? temaParam : null;
+    if (tema) {
+      document.getElementById('heroTitle').innerHTML = TEMAS[tema].h1;
+      document.getElementById('heroLead').textContent = TEMAS[tema].lead;
+      const sel = document.getElementById('assunto');
+      Array.from(sel.options).forEach(o => { if (o.text === TEMAS[tema].assunto) sel.value = o.value || o.text; });
+    }
+
+    // Pausa a animação da rua quando ela está fora da tela
+    const trafficScene = document.querySelector('.traffic-interlude');
+    if (trafficScene && 'IntersectionObserver' in window) {
+      new IntersectionObserver(entries => entries.forEach(e => trafficScene.classList.toggle('paused', !e.isIntersecting))).observe(trafficScene);
+    }
     const WHATSAPP_NUMBER = new URL(whatsappButton.href).pathname.replace(/\D/g, '');
 
     // Menu responsivo
@@ -930,29 +1015,27 @@
 
       const formData = new FormData(contactForm);
       const nome = String(formData.get('nome') || '').trim();
-      const telefone = String(formData.get('telefone') || '').trim();
       const assunto = String(formData.get('assunto') || '').trim();
       const mensagem = String(formData.get('mensagem') || '').trim();
       const text = [
         'Olá, Dr. Pedro Paulo. Recebi uma notificação de trânsito e gostaria de uma análise do meu caso.',
         '',
         `Nome: ${nome}`,
-        `Meu WhatsApp: ${telefone}`,
         `Assunto: ${assunto}`,
-        mensagem ? `Contexto e prazo: ${mensagem}` : ''
+        mensagem ? `Contexto e prazo: ${mensagem}` : '',
+        tema ? `Ref.: ${tema}` : ''
       ].filter(Boolean).join('\n');
 
       const number = WHATSAPP_NUMBER.replace(/\D/g, '');
       if (!number || number.length < 12) {
-        showToast('O formulário está pronto, mas o canal ainda precisa ser configurado. No código HTML, preencha a variável WHATSAPP_NUMBER com o número oficial do escritório (DDI + DDD + telefone).');
+        showToast('Não foi possível abrir o WhatsApp. Use o botão verde no canto da tela.');
         return;
       }
       const url = `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
       reportConversion();
-      const opened = window.open(url, '_blank', 'noopener,noreferrer');
-      if (!opened) {
-        showToast('O navegador bloqueou a nova aba. Permita pop-ups para este site ou abra o WhatsApp pelo canal de atendimento do escritório.');
-      }
+      const win = window.open(url, '_blank');
+      if (win) { try { win.opener = null; } catch (e) {} }
+      else { window.location.href = url; }
     });
   </script>
 </body>
